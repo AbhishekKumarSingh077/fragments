@@ -11,5 +11,8 @@
     "url": "git+https://github.com/AbhishekKumarSingh077/fragments.git"
   },
   "author": "AKS",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.8.3"
+  }
 }
