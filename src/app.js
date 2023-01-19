@@ -30,6 +30,14 @@ app.use(cors());
 app.use(compression());
 
 // modifications to src/app.js
+const passport = require('passport');
+const authenticate = require('./authentication');
+// Set up our passport authentication middleware
+passport.use(authenticate.strategy());
+app.use(passport.initialize());
+
+// Define our routes
+app.use('/', require('./routes'));
 
 // Remove `app.get('/', (req, res) => {...});` and replace with:
 
