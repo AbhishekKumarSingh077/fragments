@@ -31,7 +31,7 @@ app.use(compression());
 
 // modifications to src/app.js
 const passport = require('passport');
-const authenticate = require('./authentication');
+const authenticate = require('./authorization/index');
 // Set up our passport authentication middleware
 passport.use(authenticate.strategy());
 app.use(passport.initialize());
