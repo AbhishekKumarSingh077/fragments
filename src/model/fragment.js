@@ -16,22 +16,26 @@ const {
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
-    if (!ownerId || !type) {
-      throw new Error('The ownerId or !type is missing');
-    } else if (size < 0) {
+    if (!ownerId) {
+      throw new Error('The ownerId is missing and required');
+    } else {
+      this.ownerId = ownerId;
+    }
+    if (!type || (type !== 'text/plain' && type !== 'text/plain; charset=utf-8')) {
+      throw new Error('The type is either missing or the type supplied is of invalid type');
+    } else {
+      this.type = type;
+    }
+    if (size < 0) {
       throw new Error('Negative value of size is not possible');
     } else if (typeof size !== 'number') {
       throw new Error('Size must be a number type');
-    } else if (type !== 'text/plain' && type !== 'text/plain; charset=utf-8') {
-      throw new Error('Invalid Type');
     } else {
-      this.id = id || randomUUID();
-      this.ownerId = ownerId;
-      this.created = created || new Date();
-      this.updated = updated || new Date();
-      this.type = type;
       this.size = size || 0;
     }
+    this.id = id || randomUUID();
+    this.created = created || new Date();
+    this.updated = updated || new Date();
   }
 
   /**
