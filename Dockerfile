@@ -1,7 +1,7 @@
 ################################################################
 #Stage 1: Install the base dependencies
 ################################################################
-FROM node:18-alpine3.17.2@sha256:ffc770cdc09c9e83cccd99d663bb6ed56cfaa1bab94baf1b12b626aebeca9c10 AS dependencies
+FROM node:18-alpine3.17.2@sha256:ffc770cdc09c9e83cccd99d663bb6ed56cfaa1bab94baf1b12b626aebeca9c10 AS base
 
 # Set maintainer and description labels
 LABEL maintainer="ABHISHEK KUMAR SINGH <aksingh25@myseneca.ca>"
