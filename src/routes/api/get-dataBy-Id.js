@@ -1,21 +1,25 @@
-//src/routes/api/get-dataBy-Id
-
+// src/routes/api/getById.js
 const { createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
-const logger = require('../../logger');
-
+var md = require('markdown-it')();
+const path = require('path');
 module.exports = async (req, res) => {
-  logger.debug(`The Owner id, id: ${req.user}, ${req.params.id}`);
   try {
-    const fragment = await Fragment.byId(req.user, req.params.id);
+    let id = req.params.id;
+    if (req.params.id.includes('html')) {
+      const ext = path.extname(req.params.id);
+      id = req.params.id.replace(ext, '');
+    }
+    const fragment = await Fragment.byId(req.user, id);
     const fragmentData = await fragment.getData();
-    logger.debug('fragmentdata: ' + fragmentData);
-    res.set('Content-Type', fragment.type);
-    res.status(200).send(fragmentData);
+    if (req.params.id.includes('html') && fragment.type === 'text/markdown') {
+      res.set('Content-Type', 'text/html');
+      res.status(200).send(md.render(fragmentData.toString()));
+    } else {
+      res.set('Content-Type', fragment.type);
+      res.status(200).send(fragmentData);
+    }
   } catch (error) {
-    logger.warn(error.message, 'Error:No fragment found with this id');
-    res
-      .status(404)
-      .json(createErrorResponse(404, 'request not completed due to wrong fragment id'));
+    res.status(404).json(createErrorResponse(404, error));
   }
 };

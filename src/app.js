@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const { createErrorResponse } = require('./response');
+require('dotenv').config();
 
 // version and author from our package.json file
 //const { version, author } = require('../package.json');

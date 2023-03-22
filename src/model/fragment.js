@@ -21,10 +21,10 @@ class Fragment {
     } else {
       this.ownerId = ownerId;
     }
-    if (!type || (type !== 'text/plain' && type !== 'text/plain; charset=utf-8')) {
-      throw new Error('The type is either missing or the type supplied is of invalid type');
-    } else {
+    if (Fragment.isSupportedType(type)) {
       this.type = type;
+    } else {
+      throw new Error('Invalid Type');
     }
     if (size < 0) {
       throw new Error('Negative value of size is not possible');
@@ -118,11 +118,7 @@ class Fragment {
    * @returns {boolean} true if fragment's type is text/*
    */
   get isText() {
-    if (this.mimeType === 'text/plain') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.mimeType === 'text/plain';
   }
 
   /**
@@ -139,7 +135,13 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    if (value == 'text/plain' || value == 'text/plain; charset=utf-8') {
+    if (
+      value == 'text/plain' ||
+      value == 'text/plain; charset=utf-8' ||
+      value == 'text/markdown' ||
+      value == 'text/html' ||
+      value == 'application/json'
+    ) {
       return true;
     } else {
       return false;
