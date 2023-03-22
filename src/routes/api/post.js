@@ -2,8 +2,6 @@ const response = require('../../response');
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 
-//const url = process.env.API_URL;
-
 module.exports = async (req, res) => {
   logger.debug('Post: ' + req.body);
   if (!Fragment.isSupportedType(req.get('Content-Type'))) {

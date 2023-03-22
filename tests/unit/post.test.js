@@ -38,7 +38,7 @@ describe('POST /fragments', () => {
       .auth('user1@email.com', 'password1')
       .set('content-type', 'dsa/ftp');
     expect(res.statusCode).toBe(415);
-  });
+  }); 
 
   test('request succeeded, the reponse include a Location header', async () => {
     const res = await request(app)
