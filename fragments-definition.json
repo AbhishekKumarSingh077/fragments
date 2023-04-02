@@ -27,6 +27,18 @@
       "cpu": 256,
       "environment": [
         {
+          "name": "AWS_COGNITO_CLIENT_ID",
+          "value": "2jninvcldvg4kkfjf9aj2boekp"
+        },
+        {
+          "name": "AWS_COGNITO_POOL_ID",
+          "value": "us-east-1_MPN8jJzRw"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "us-east-1"
+        },
+        {
           "name": "PORT",
           "value": "8080"
         }
