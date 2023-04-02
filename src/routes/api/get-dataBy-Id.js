@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       res.set('Content-Type', 'text/html');
       res.status(200).send(markdownMD.render(fragData.toString()));
     } else {
-      res.set('Content-Type', frag.type);
+      res.setHeader('Content-Type', frag.type);
       res.status(200).send(fragData);
     }
   } catch (error) {
