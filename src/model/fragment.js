@@ -68,6 +68,7 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise<void>
    */
+
   static delete(ownerId, id) {
     return deleteFragment(ownerId, id);
   }

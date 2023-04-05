@@ -47,6 +47,13 @@ COPY ./src ./src
 # Copy our HTPASSWD file
 COPY ./tests/.htpasswd ./tests/.htpasswd
 
+# Added healthcheck
+HEALTHCHECK --interval=30s --timeout=5s \
+  CMD wget -qO- "http://localhost:8080/health" || exit 1
+
+# Set the user to "node"
+USER node
+
 # Start the container by running our server
 CMD ["npm","start"]
 

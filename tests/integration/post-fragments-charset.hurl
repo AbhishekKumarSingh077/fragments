@@ -6,7 +6,7 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 # We're sending a plain text fragment
 Content-Type: text/plain; charset=utf-8
 # Body of the request goes in ```...``` when it's a string
-```This is a fragment!```
+`This is a fragment!`
 
 # 1. We expect to get back an HTTP 201
 HTTP/1.1 201
