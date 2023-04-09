@@ -80,4 +80,12 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 # 11. It should return 404 since the fragment should be deleted
 HTTP/1.1 404
 
+# 12. Get all the fragments
+GET http://localhost:8080/v1/fragments
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.fragments" not includes {{fragment1_id}}
+jsonpath "$.fragments" includes {{fragment2_id}}
+
 
