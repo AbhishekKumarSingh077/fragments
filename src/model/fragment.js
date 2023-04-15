@@ -13,6 +13,7 @@ const {
   listFragments,
   deleteFragment,
 } = require('./data');
+const logger = require('../logger');
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
@@ -96,11 +97,14 @@ class Fragment {
    * @returns Promise<void>
    */
   async setData(data) {
+    logger.info('Data check');
     if (!Buffer.isBuffer(data)) {
       throw new Error('Data does not serve as a buffer');
     }
     this.size = data.length;
+    logger.info('Data length is being set!');
     await this.save();
+    logger.info('Data is being saved!');
     return writeFragmentData(this.ownerId, this.id, data);
   }
 
