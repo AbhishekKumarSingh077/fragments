@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
+    logger.error(`Error occurred while creating a new fragment: ${err.stack}`);
     res.status(500).json(response.createErrorResponse(500, err));
   }
 };

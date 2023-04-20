@@ -3,6 +3,11 @@
 const { randomUUID } = require('crypto');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
+const md = require('markdown-it')({
+  html: true,
+});
+//var mime = require('mime-types');
+const sharp = require('sharp');
 
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -123,7 +128,12 @@ class Fragment {
    * @returns {boolean} true if fragment's type is text/*
    */
   get isText() {
-    return this.mimeType === 'text/plain';
+    //return this.mimeType === 'text/plain';
+    if (this.mimeType.match(/text\/+/)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -131,7 +141,18 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return ['text/plain'];
+    //return ['text/plain'];
+    if (this.mimeType === 'text/plain') {
+      return ['text/plain'];
+    } else if (this.mimeType === 'text/markdown') {
+      return ['text/plain', 'text/markdown', 'text/html'];
+    } else if (this.mimeType === 'text/html') {
+      return ['text/plain', 'text/html'];
+    } else if (this.mimeType === 'application/json') {
+      return ['text/plain', 'application/json'];
+    } else {
+      return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+    }
   }
 
   /**
@@ -145,13 +166,45 @@ class Fragment {
       value == 'text/plain; charset=utf-8' ||
       value == 'text/markdown' ||
       value == 'text/html' ||
-      value == 'application/json'
+      value == 'application/json' ||
+      value == 'image/png' ||
+      value == 'image/jpeg' ||
+      value == 'image/gif' ||
+      value == 'image/webp'
     ) {
       return true;
     } else {
       return false;
     }
   }
-}
 
+  /**
+   * Returns the data converted to the desired type
+   * @param {Buffer} data fragment data to be converted
+   * @param {string} extension the type extension you want to convert to (desired type)
+   * @returns {Buffer} converted fragment data
+   */
+
+  convertDataType(data, type) {
+    switch (type) {
+      case 'text/html':
+        if (this.type === 'text/markdown') {
+          return md.render(data.toString());
+        }
+        return data;
+      case 'image/png':
+        return sharp(data).toFormat('png');
+      case 'image/jpeg':
+        return sharp(data).toFormat('jpeg');
+      case 'image/gif':
+        return sharp(data).toFormat('gif');
+      case 'image/webp':
+        return sharp(data).toFormat('webp');
+      case 'text/plain':
+        return data.toString();
+      default:
+        return data;
+    }
+  }
+}
 module.exports.Fragment = Fragment;

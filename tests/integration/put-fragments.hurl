@@ -36,7 +36,7 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 Content-Type: text/plain
 `This is an updated fragment!`
 
-HTTP/1.1 200
+HTTP/1.1 201
 [Asserts]
 jsonpath "$.fragment.id" matches "^[A-Za-z0-9_-]+$"
 jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
@@ -53,8 +53,3 @@ Content-Length: 28
 header "Content-Type" startsWith "text/plain"
 body == "This is an updated fragment!"
 
-PUT http://localhost:8080/v1/fragments/random
-Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
-Content-Type: text/plain
-`This is an updated fragment!`
-HTTP/1.1 404

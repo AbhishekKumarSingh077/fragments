@@ -29,7 +29,7 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 # 4. Return 200 and check the contents in it
 HTTP/1.1 200
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
 Content-Length: 9
 [Asserts]
 body == "Hello S3!"
