@@ -40,7 +40,7 @@ class Fragment {
       this.size = size || 0;
     }
     this.id = id || randomUUID();
-    this.created = created || created.toLocaleString();
+    this.created = created || created.toISOString();
     this.updated = updated || updated.toISOString();
   }
 
