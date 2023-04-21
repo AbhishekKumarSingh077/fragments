@@ -1,3 +1,4 @@
+// src/routes/api/delete.js
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');

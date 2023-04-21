@@ -1,4 +1,4 @@
-// src/routes/api/getById.js
+// src/routes/api/get-dataBy-Id.js
 
 const { createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
