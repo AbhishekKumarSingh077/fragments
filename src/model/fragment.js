@@ -21,7 +21,14 @@ const {
 const logger = require('../logger');
 
 class Fragment {
-  constructor({ id, ownerId, created = new Date(), updated = new Date(), type, size = 0 }) {
+  constructor({
+    id,
+    ownerId,
+    created = new Date().toISOString(),
+    updated = new Date(),
+    type,
+    size = 0,
+  }) {
     if (!ownerId) {
       throw new Error('The ownerId is missing and required');
     } else {
@@ -40,7 +47,7 @@ class Fragment {
       this.size = size || 0;
     }
     this.id = id || randomUUID();
-    this.created = created || created.toISOString();
+    this.created = created || created.toLocaleString();
     this.updated = updated || updated.toISOString();
   }
 
